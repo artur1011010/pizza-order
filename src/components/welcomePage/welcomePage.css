@@ -2,18 +2,17 @@
     background-color: white;
     color: black;
     margin: 15px;
-    border: black solid 2px;
+    border: grey solid 1px;
     padding: 15px;
 }
 /* TODO - fix button on active - when is clicked */
 .custom-buttons:hover{
     background-color: gray;
-    border: black solid 2px;
 }
 
 .pizza-size:hover{
     background-color: black;
 }
 .add{
-    background-color: #F5C684;
+    background-color: #FFD8B9;
 }

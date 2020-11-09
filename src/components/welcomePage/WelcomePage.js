@@ -23,7 +23,7 @@ const WelcomePage = (props) => {
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Akceptuje regulamin serwisu" />
                     </Form.Group>
-                    <Button className="custom-buttons rounded-pill add" variant="primary" type="submit">
+                    <Button className="custom-buttons rounded-pill add" variant="secondary" type="submit">
                         Zapisz
                     </Button>
                 </Form>
