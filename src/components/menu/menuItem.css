@@ -6,14 +6,31 @@
     border-radius: 50px;
     overflow: hidden;
     align-items: center;
+    position: relative;
 }
 
 .pizza-card:hover {
     background-color: #FFD8B9;
 }
+.pizza-card .pizza-desc{
+    /* padding: 40px 10px; */
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    /* display: none; */
+    /* visibility: hidden; */
+}
+.pizza-card:hover .pizza-desc{
+    /* display: block; */
+    /* visibility: hidden; */
+}
+
 
 .pizza-img {
     max-width: 100%;
     height: auto;
-    padding: 35px;
+    padding: 10px;
 }

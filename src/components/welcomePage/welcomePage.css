@@ -7,12 +7,9 @@
 }
 /* TODO - fix button on active - when is clicked */
 .custom-buttons:hover{
-    background-color: gray;
-}
-
-.pizza-size:hover{
     background-color: black;
 }
-.add{
-    background-color: #FFD8B9;
-}
+
+/* .pizza-size:hover{
+    background-color: black;
+} */
