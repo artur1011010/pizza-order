@@ -13,7 +13,7 @@ const Basket = (props) => {
             <div className="col-4">
                <h1>basket:</h1>
                {basketList}
-               <Button onClick={() => props.clearBasket()} className="custom-buttons rounded-pill add" variant="secondary">< div>wyczyść koszyk</div></Button>
+               <Button onClick={() => props.clearBasket()} className="custom-buttons rounded-pill add" variant="secondary"><div>wyczyść koszyk</div></Button>
             </div>
         </div>
     );

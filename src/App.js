@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Controlls from './components/controlls/Controlls';
 // import WelcomePage from './components/welcomePage/WelcomePage';
@@ -13,12 +12,13 @@ class App extends Component {
 
   state = {
     customer: {
-      email: "",
-      name: "",
+      email: "artur.artur@gmail.com",
+      name: "Artur Zac",
       address: "",
       phone: ""
     },
     basket: [],
+    basketSum: 0,
     menu: [
       {
         id: 1,
@@ -96,13 +96,10 @@ class App extends Component {
   }
 
   addToBasket = (id, size) => {
-    let menu = [...this.state.menu];
-    let index = menu.findIndex(menuItem => menuItem.id === id);
+    const menu = [...this.state.menu];
+    const index = menu.findIndex(menuItem => menuItem.id === id);
     menu[index].choosenSize = size;
-
-    console.log('addToBasket()');
-
-
+    // console.log('addToBasket()');
     const basketItem = {
       id: menu[index].id,
       name: menu[index].name,
@@ -110,12 +107,15 @@ class App extends Component {
       description: menu[index].description,
       price: this.checkPrice(menu[index].choosenSize, index)
     }
-    console.log(basketItem);
+    // console.log(basketItem);
     let basket = [...this.state.basket];
-    console.log(basket);
+    // console.log(basket);
     basket.push(basketItem);
+    let basketSum = this.updateBasketSum(basket);
+    console.log("basketSum: " + basketSum);
     this.setState({
-      basket
+      basket,
+      basketSum
     })
   }
 
@@ -126,19 +126,6 @@ class App extends Component {
   clearBasket = () => {
     this.setState({ basket: [] });
   };
-
-  render() {
-    return (
-      <div className="App">
-        <NavBar></NavBar>
-        <div className="body-wraper">
-          <Button onClick={() => this.checkBasket()} className="custom-buttons rounded-pill pizza-size" variant="secondary"><div>sprawdz koszyk</div></Button>
-          <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
-          <Basket basket={this.state.basket} clearBasket={this.clearBasket}></Basket>
-        </div>
-      </div>
-    );
-  }
 
   checkPrice (size, index){
     let priceResult = 'N/A' 
@@ -154,6 +141,25 @@ class App extends Component {
     console.log("priceResult: " + priceResult);
     return priceResult;
   }
+
+  updateBasketSum(basket){
+    let result = 0;
+    basket.forEach(i=> result += i.price);
+    return result;
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <NavBar customer={this.state.customer} basket={this.state.basket} basketSum={this.state.basketSum}></NavBar>
+        <div className="body-wraper">
+          <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
+          <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
+        </div>
+      </div>
+    );
+  }
+
 }
 
 
