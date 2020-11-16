@@ -1,10 +1,28 @@
-
 .App {
   text-align: center;
   font-weight: 900;
   font-family: 'Montserrat Alternates', sans-serif;
 }
-h1{
-  margin: 50px;
+
+* {
+  margin: 0;
+  padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.body-wraper {
+  padding-top: 30px;
+  margin-top: 80px;
+  height: calc(100vh - 80px);
+  max-width: 100vw;
+}

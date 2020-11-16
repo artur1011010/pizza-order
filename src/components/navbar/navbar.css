@@ -1,0 +1,53 @@
+.nav-bar {
+    height: 80px;
+    width: 100vw;
+    background-color: white;
+    overflow: hidden;
+    z-index: 3;
+    position: fixed;
+    border-bottom: grey solid 1px;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+}
+
+.nav-bar .left-nav {
+    margin-top: 20px;
+    display: inline-block;
+    float: left;
+    font-size: 17px;
+    margin-left: 40px;
+}
+
+.nav-bar .left-nav p {
+    display: inline;
+}
+
+/*left-nav high and interline manipulation */
+
+.nav-bar .left-nav {
+    position: relative;
+}
+
+.nav-bar .right-nav {
+    margin-top: 20px;
+    margin-right: 40px;
+    float: right;
+    display: inline-block;
+}
+
+.nav-bar .right-nav p {
+    color: black;
+    display: inline;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+/*right-nav high and interline manipulation */
+
+.nav-bar .right-nav {
+    position: relative;
+}

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Controlls from './components/controlls/Controlls';
-import WelcomePage from './components/welcomePage/WelcomePage';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import Controlls from './components/controlls/Controlls';
+// import WelcomePage from './components/welcomePage/WelcomePage';
 import Basket from './components/basket/Basket';
 import Menu from './components/menu/Menu';
+import NavBar from './components/navbar/Navbar';
 
-const size = {
-  s: 's',
-  m: 'm',
-  l: 'l'
-}
 
 class App extends Component {
 
@@ -28,7 +26,7 @@ class App extends Component {
         price_s: 24.00,
         price_m: 29.00,
         price_l: 34.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte i bazylią"
       },
       {
@@ -37,7 +35,7 @@ class App extends Component {
         price_s: 32.00,
         price_m: 37.00,
         price_l: 42.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte, bazylią i pikantnym salami"
       },
       {
@@ -46,7 +44,7 @@ class App extends Component {
         price_s: 24.00,
         price_m: 29.00,
         price_l: 34.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "z wędzonym serem provola, pesto z bazylii, neapolitańskimi suszonymi pomidorami, oliwą extra virgin, serem grana padano d.o.p i bazylią"
       },
       {
@@ -55,7 +53,7 @@ class App extends Component {
         price_s: 33.00,
         price_m: 38.00,
         price_l: 43.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "z mozzarellą fior di latte, oliwą extra virgin, niebieskim serem gorgonzola d.o.p, serem pecorino romano, panna di burata, pieprzem i bazylią"
       },
       {
@@ -64,7 +62,7 @@ class App extends Component {
         price_s: 35.00,
         price_m: 40.00,
         price_l: 46.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "z wędzonym serem provola, cukinią, wieprzowym guancine, miętą, płatkami sera caciocavallo i oliwą extra virgine"
       },
       {
@@ -73,7 +71,7 @@ class App extends Component {
         price_s: 42.00,
         price_m: 47.00,
         price_l: 55.00,
-        choosenSize: size.s,
+        choosenSize: 24,
         description: "focaccia z kawałkami burraty, pomidorami cherry, rukolą, oliwą extra virgine i prosciutto crudo di parma"
       }
     ]
@@ -87,52 +85,76 @@ class App extends Component {
     let menu = [...this.state.menu];
     const index = menu.findIndex(menuItem => menuItem.id === id);
     //TODO zmienic na switch-case
-    if (menu[index].choosenSize === 24) {
-      menu[index].choosenSize = size.s;
-      console.log('changed size, menu item id: ' + id + " :size " + size.s);
-    } else if (menu[index].choosenSize === 32) {
-      menu[index].choosenSize = size.m;
-      console.log('changed size, menu item id: ' + id + " :size " + size.m);
-    } else
-      menu[index].choosenSize = size.l;
-    console.log('changed size, menu item id: ' + id + " :size " + size.l);
+    console.log("menu index: " + index);
+    menu[index].choosenSize = size;
+    console.log("menu[index].choosenSize: " + menu[index].choosenSize);
+
+
     this.setState({
-      menu
+      menu: menu
     })
   }
 
-  changeTaskStatus = (id) => {
-    let tasks = this.state.tasks;
-    const index = tasks.findIndex(task => task.id === id);
-    console.log(`index w tablicy ${index}`);
-    if (tasks[index].isActive === true) {
-      tasks[index].isActive = false;
-    } else {
-      tasks[index].isActive = true;
+  addToBasket = (id, size) => {
+    let menu = [...this.state.menu];
+    let index = menu.findIndex(menuItem => menuItem.id === id);
+    menu[index].choosenSize = size;
+
+    console.log('addToBasket()');
+
+
+    const basketItem = {
+      id: menu[index].id,
+      name: menu[index].name,
+      size: menu[index].choosenSize,
+      description: menu[index].description,
+      price: this.checkPrice(menu[index].choosenSize, index)
     }
-
+    console.log(basketItem);
+    let basket = [...this.state.basket];
+    console.log(basket);
+    basket.push(basketItem);
     this.setState({
-      tasks
+      basket
     })
   }
 
+  checkBasket = () => {
+    console.log(this.state.basket);
+  }
 
+  clearBasket = () => {
+    this.setState({ basket: [] });
+  };
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>
-            Aplikacja do zamawiania pizzy
-        </h1>
-          {/* <Controlls></Controlls> */}
-          {/* <WelcomePage></WelcomePage> */}
-          {/* <Basket></Basket> */}
-          <Menu menuList={this.state.menu} changeSize={this.changeSize} ></Menu>
-        </header>
+        <NavBar></NavBar>
+        <div className="body-wraper">
+          <Button onClick={() => this.checkBasket()} className="custom-buttons rounded-pill pizza-size" variant="secondary"><div>sprawdz koszyk</div></Button>
+          <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
+          <Basket basket={this.state.basket} clearBasket={this.clearBasket}></Basket>
+        </div>
       </div>
     );
   }
+
+  checkPrice (size, index){
+    let priceResult = 'N/A' 
+    if(size===24){
+      priceResult = this.state.menu[index].price_s
+    }
+    if(size===32){
+      priceResult = this.state.menu[index].price_m
+    }
+    if(size===42){
+      priceResult = this.state.menu[index].price_l
+    }
+    console.log("priceResult: " + priceResult);
+    return priceResult;
+  }
 }
+
 
 export default App;
