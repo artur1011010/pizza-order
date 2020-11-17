@@ -124,7 +124,7 @@ class App extends Component {
   }
 
   clearBasket = () => {
-    this.setState({ basket: [] });
+    this.setState({ basket: [], basketSum:0 });
   };
 
   checkPrice (size, index){
@@ -154,8 +154,8 @@ class App extends Component {
         <NavBar customer={this.state.customer} basket={this.state.basket} basketSum={this.state.basketSum}></NavBar>
         <div className="body-wraper">
           <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
-          <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
         </div>
+        <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
       </div>
     );
   }

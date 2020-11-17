@@ -1,0 +1,17 @@
+.basket-bar {
+    height: 120px;
+    width: 100vw;
+    color: whitesmoke;
+    background-color: black;
+    overflow: hidden;
+    z-index: 3;
+    position: fixed;
+    border-bottom: grey solid 1px;
+    font-size: 20px;
+    /* Set the navbar to fixed position */
+    bottom: 0;
+    /* Position the navbar at the top of the page */
+}
+
+.basket-bar .basket-button {
+}
