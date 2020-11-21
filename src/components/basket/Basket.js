@@ -3,11 +3,12 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './basket.css';
+import BasketItem from './BasketItem';
 
 
 const Basket = (props) => {
 
-    let basketList = props.basket.map(basketItem => <p>id: {basketItem.id} , {basketItem.name}, rozmiar: {basketItem.size} : cena: {basketItem.price}</p>);
+    let basketList = props.basket.map(item => <BasketItem id={item.id} name={item.name}  size={item.size} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem> );
 
     return (
         <Route exact path="/basket">

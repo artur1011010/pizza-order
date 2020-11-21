@@ -4,11 +4,16 @@ import './basket.css';
 import { Button } from 'react-bootstrap';
 
 
-const BasketItem = (props) =>{
-    return(
+const BasketItem = (props) => {
+    return (
         <>
-        basket item
+            <div className="basket-item">
+                nr: {props.id}, {props.name}  {props.size} cena: {props.price} zł
+            <Button onClick={() => props.deleteBasketItem(props.id)} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>usuń</div>
+                </Button>
+            </div>
         </>
+
     )
 }
 

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Controlls from './components/controlls/Controlls';
-// import WelcomePage from './components/welcomePage/WelcomePage';
+import WelcomePage from './components/welcomePage/WelcomePage';
 import BasketBar from './components/basket/BasketBar';
 import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Router } from 'react-router-dom';
 import Basket from './components/basket/Basket';
 
 
@@ -121,8 +121,18 @@ class App extends Component {
     })
   }
 
-  deleteFromBasket = (id) =>{
-
+  deleteBasketItem = (id) => {
+    console.log("deleteBasketItem()");
+    console.log("id: " + id)
+    let basket = [...this.state.basket];
+    const index = basket.findIndex(basketItem => basketItem.id === id);
+    console.log("index: " + index)
+    basket.splice(index, 1);
+    let basketSum = this.updateBasketSum(basket);
+    this.setState({
+      basket,
+      basketSum
+    })
   }
 
   checkBasket = () => {
@@ -166,7 +176,10 @@ class App extends Component {
             <BasketBar basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></BasketBar>
           </Route>
           <Route exact path="/basket">
-            <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
+            <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum} deleteBasketItem={this.deleteBasketItem}></Basket>
+          </Route>
+          <Route path="/welcome">
+            <WelcomePage></WelcomePage>
           </Route>
         </div>
       </BrowserRouter>

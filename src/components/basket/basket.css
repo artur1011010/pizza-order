@@ -16,3 +16,12 @@
 .basket-wrapper{
     margin-top: 200px;
 }
+
+.basket-item{
+    border: grey solid 1px;
+    border-radius: 50px;
+    margin: 10px;
+}
+.basket-item:hover{
+  background-color: #FFD8B9;
+}
