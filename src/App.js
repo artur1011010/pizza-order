@@ -3,9 +3,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Controlls from './components/controlls/Controlls';
 // import WelcomePage from './components/welcomePage/WelcomePage';
-import Basket from './components/basket/Basket';
+import BasketBar from './components/basket/BasketBar';
 import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Basket from './components/basket/Basket';
 
 
 class App extends Component {
@@ -119,44 +121,55 @@ class App extends Component {
     })
   }
 
+  deleteFromBasket = (id) =>{
+
+  }
+
   checkBasket = () => {
     console.log(this.state.basket);
   }
 
   clearBasket = () => {
-    this.setState({ basket: [], basketSum:0 });
+    this.setState({ basket: [], basketSum: 0 });
   };
 
-  checkPrice (size, index){
-    let priceResult = 'N/A' 
-    if(size===24){
+  checkPrice(size, index) {
+    let priceResult = 'N/A'
+    if (size === 24) {
       priceResult = this.state.menu[index].price_s
     }
-    if(size===32){
+    if (size === 32) {
       priceResult = this.state.menu[index].price_m
     }
-    if(size===42){
+    if (size === 42) {
       priceResult = this.state.menu[index].price_l
     }
     console.log("priceResult: " + priceResult);
     return priceResult;
   }
 
-  updateBasketSum(basket){
+  updateBasketSum(basket) {
     let result = 0;
-    basket.forEach(i=> result += i.price);
+    basket.forEach(i => result += i.price);
     return result;
   }
 
   render() {
     return (
-      <div className="App">
-        <NavBar customer={this.state.customer} basket={this.state.basket} basketSum={this.state.basketSum}></NavBar>
-        <div className="body-wraper">
-          <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
+      <BrowserRouter>
+        <div className="App">
+          <NavBar customer={this.state.customer} basket={this.state.basket} basketSum={this.state.basketSum}></NavBar>
+          <Route exact path="/">
+            <div className="body-wraper">
+              <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
+            </div>
+            <BasketBar basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></BasketBar>
+          </Route>
+          <Route exact path="/basket">
+            <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
+          </Route>
         </div>
-        <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></Basket>
-      </div>
+      </BrowserRouter>
     );
   }
 

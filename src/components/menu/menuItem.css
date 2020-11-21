@@ -9,6 +9,10 @@
     position: relative;
 }
 
+.pizza-card:last-child {
+    margin-bottom: 120px;
+}
+
 .pizza-card:hover {
     background-color: #FFD8B9;
 }

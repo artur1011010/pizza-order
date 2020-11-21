@@ -9,7 +9,6 @@ const BasketBar = (props) => {
     let basketList = props.basket.map(basketItem => <p>{basketItem.name}, rozmiar: {basketItem.size} : cena: {basketItem.price}</p>);
 
     return (
-        
         <div className="basket-bar" style={props.basketSum === 0 ? { display: "none" } : { color: "white" }}>
             <div className="">
                 {basketList}

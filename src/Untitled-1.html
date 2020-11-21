@@ -1,0 +1,377 @@
+<html>
+<head>
+
+</head>
+%invoke cb.sil.controlpage.pub:checkUserPermissions%
+%ifvar value userACL equals('elevated')%
+<body onload="listFilteredFiles()" >
+<div class="main">
+<h2 style="text-align:center;">Response File Processing</h2>
+<div class="reProcessing">
+	<br>
+<font color="black" face="arial" size="4"><B><U>Filter File for Re-Processing</B></U></font>
+<br></br>
+<table style="width: 100%" class="table-hover table table-striped">
+			<tbody>
+				<tr>
+					<td style="font-weight: bold;width: 13%">FileAge (default - 2):</td>
+					<td>
+						<select id="fileAge" onchange="listFilteredFiles()">
+							<option value="-2">2</option>
+							<option value="-3">3</option>
+							<option value="-4">4</option>
+							<option value="-5">5</option>
+							<option value="-10">10</option>		
+							<option value="-20">20</option>
+							<option value="-30">30</option>					
+						</select>
+						<font color="black" face="arial" size="4">Days</font>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+</div>
+<br>
+<!-- <h2 id="GFG_DOWN11" style="color:#566D7E; font-size: 15px; font-weight: bold;border: 1px solid grey;width:100%; border-color: #4863A0; border-radius: 5px;padding:4px;background-color: #f2f8fb; margin:0 auto;font-family: sans-serif;"> 
+
+</h2> -->
+  <div id="GFG_DOWN11">
+  
+  </div>
+  <div class="sub5">
+			<table id="resultTable11" style="width: 80%" class="table-hover table table-striped">
+			</table>
+  </div>
+   <div class="sub5">
+			<table id="resultTable12" style="width: 70%" class="table-hover table table-striped">
+			</table>
+  </div>
+  <div id="GFG_DOWN12">
+  
+  </div>
+<!-- <pre id="GFG_DOWN12" style="color:#566D7E; font-size: 15px; font-weight: bold;border: 2px solid grey;width:100%; border-color: #4863A0; border-radius: 5px;padding:4px;background-color: #f2f8fb; margin:0 auto;font-family: sans-serif;"> 
+
+</pre> --> 
+
+
+</div>
+
+</body>
+
+<script>
+var displayblock = '<h2 id="GFG_DOWN11" style="color:#566D7E; font-size: 15px; font-weight: bold;width:70%; padding:4px;background-color: #f2f8fb; font-family: sans-serif;">';
+var moveFileDisplayblock = '<pre id="GFG_DOWN12" style="color:#566D7E; font-size: 15px; font-weight: bold;border: 2px solid grey;width:100%; border-color: #4863A0; border-radius: 5px;padding:4px;background-color: #f2f8fb; margin:0 auto;font-family: sans-serif;">';
+var splitFileName;
+var rCounter='0';
+var rDate='';
+var isReprocessed='No';
+
+function listFilteredFiles()
+{
+   //get table
+	insertIntoResultTable14('',null);
+	var fileAge = document.getElementById("fileAge");
+	var fileAgeNummer = fileAge.options[fileAge.selectedIndex].value;
+	var el_down1 = document.getElementById("GFG_DOWN11"); 
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText == "error") {
+			   		
+					insertIntoResultTable11('',"resultTable11");
+					alert("No result was found!");
+				} else {
+					
+					insertIntoResultTable11(JSON.parse(this.responseText),"resultTable11");
+				}
+			}
+		};
+		//uri
+		var res = encodeURI("/invoke/cb.sil.controlpage.pub:getFilesForReprocessing?&fileAge="+ fileAgeNummer+"&dummyTime="+new Date().getTime().toString()); 
+			
+		xhttp.open("get", res, true);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("Accept", "application/json");
+		xhttp.send();
+}
+
+function insertIntoResultTable11(json,resultTableEle) {
+		var el_down1 = document.getElementById("GFG_DOWN11"); 
+		
+		 //delete old table if existent
+			   //stop if no result found
+		if (json == '') {
+			return;
+		}
+		var resultTable = document.getElementById(resultTableEle);
+		while (resultTable.rows.length > 0) {
+		  for (l = 0; l < resultTable.rows.length; l++) {
+		   resultTable.deleteRow(l);
+		 }
+	 	   
+		} 
+		var status = JSON.stringify(json["status"]);
+		status=status.replace(/"/g, '')
+
+		if(status == 'error'){
+			el_down1.innerHTML =  displayblock+"Error during filtering files. Please check CBSIL_HTNG_Acknowledgement logs." + "\n";
+			return;
+		}
+		var filteredFileList = JSON.stringify(json["filteredFileList"]);
+		if(filteredFileList == "[]"){
+			el_down1.innerHTML =  displayblock+"No File matching filtering Criteria" + "\n";
+			return;
+		}
+		var fList = filteredFileList.split(",");
+		
+		var buttonRow = resultTable.insertRow(0);
+		var cell2 = buttonRow.insertCell(0);
+		cell2.innerHTML = '<button onClick="reProcessFiles()" type="button" class="linkbutton">Re-Process Files</button>';
+		
+		 for(var i = 0; i < fList.length; i++){var row = resultTable.insertRow(0);
+			
+			 var cellCheckBox = row.insertCell(0);
+			  var cellFileName = row.insertCell(1);
+			  var cellReprocessed = row.insertCell(2);
+			  var cellCounter = row.insertCell(3);
+			  var cellDate = row.insertCell(4);
+			  var cellFullFileName = row.insertCell(5);
+			var cellFileStatus = row.insertCell(6);
+			cellCheckBox.innerHTML = '<input type="checkbox" id="scales"+i name="scales"+i  size="0.1">';
+	   		cellFileName.innerHTML = '<input type="text" id="text"+i name="text"+i value='+getSplitFileName(fList[i])+'  size="70%" readonly></input>';
+	   		cellFullFileName.innerHTML = '<input type="text"  id="text"+i name="text"+i value='+cleanupString(fList[i])+'  size="1" readonly></input>';
+	   		cellFullFileName.style.visibility = 'hidden';
+	   		cellReprocessed.innerHTML = '<input type="text" id="text"+i name="text"+i value='+checkReProcessed(fList[i])+'  size="10%" readonly></input>';
+	   		cellCounter.innerHTML = '<input type="text" id="text"+i name="text"+i value='+getCounter(fList[i])+'  size="10%" readonly></input>';
+	   		cellDate.innerHTML = '<input type="text" id="text"+i name="text"+i value='+getDate(fList[i])+'  size="10%" readonly></input>';
+	   		cellFileStatus.innerHTML = '<input type="text" id="status"+i name="status"+i value='+getFileStatus(fList[i],i)+'  size="30%" readonly></input>';
+			
+	   			  
+	   		
+		}
+		
+		var headerRow = resultTable.insertRow(0);
+		
+		var headerCel0 = headerRow.insertCell(0);
+		headerCel0.innerHTML = '<font color="black" face="arial" size="4"></font>';
+		var headerCel1 = headerRow.insertCell(1);
+		headerCel1.innerHTML = '<font color="black" face="arial" size="4">FileName</font>';
+		var headerCel2 = headerRow.insertCell(2);
+		headerCel2.innerHTML = '<font color="black" face="arial" size="4">Reprocessed</font>';
+		var headerCel4 = headerRow.insertCell(3);
+		headerCel4.innerHTML = '<font color="black" face="arial" size="4">R-Count</font>';		
+		var headerCel3 = headerRow.insertCell(4);
+		headerCel3.innerHTML = '<font color="black" face="arial" size="4">R-Date</font>';
+		 var headerCel5 = headerRow.insertCell(5);
+		headerCel5.innerHTML = '<font color="black" face="arial" size="0"></font>';
+		 headerCel5.innerHTML = '<style size="0"/>';
+		headerCel5.style.visibility = 'hidden';
+		 var headerCel6 = headerRow.insertCell(6);
+		headerCel6.innerHTML = '<font color="black" face="arial" size="4">FileStatus</font>';
+		
+	   el_down1.innerHTML =  displayblock+"HTNG Response files available for re-processing " + "\n";
+			
+	}
+
+function reProcessFiles(){
+
+	var confirmInput = confirm("Selected Files will be re-processed. Click OK to proceed?");
+
+	if (confirmInput == true) {
+		
+	 var table = document.getElementById('resultTable11');
+	 if (table == null)
+		 return;
+
+	 if (table.rows[0].cells.length <= 1)
+		 return;
+	
+	 var data1 = [];
+	 
+	 var data = [];
+	 for (l = 0; l < table.rows[0].cells.length; l++) {
+		 data.push({
+			 items: [],
+			 name: "ColumnNumber" + l
+		 });
+	 }
+
+	 for (i = 0; i < table.rows.length; i++) {
+		 var cells = table.rows[i].cells;
+		 var inputElem = cells[0].children[0];
+		 if(inputElem.checked){
+		 	var inputElem1 = cells[5].children[0];
+		 	data1.push(inputElem1.value);
+		 }
+		 
+	 }
+	 
+	 callMoveFileForReporcessing(data1);
+	 insertIntoResultTable11('',null);
+	 listFilteredFiles();
+	}
+	
+}
+
+ function callMoveFileForReporcessing(data) {
+ 
+	 var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText == "error") {
+					insertIntoResultTable14('',"resultTable12");
+					alert("No result was found!");
+				} else {
+					insertIntoResultTable14(JSON.parse(this.responseText),"resultTable12");
+				}
+			}
+		};
+		//uri
+		var res = encodeURI("/invoke/cb.sil.controlpage.pub:moveFileForReprocessing?&jsonString="+JSON.stringify(data)+"&dummyTime="+new Date().getTime().toString()); 
+		xhttp.open("get", res, true);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("Accept", "application/json");
+		xhttp.send();
+	   
+ }
+function getFileStatus(fileName,i)
+{
+var result2;
+var textFieldName ="status"+i;
+var textval = document.getElementById('textFieldName');
+var el_down1 = document.getElementById("GFG_DOWN11"); 
+	 var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText == "error") {
+					insertIntoResultTable06('',"resultTable06");
+					alert("No result was found!");
+				} else {
+				this.responseText;
+			   var parts  = this.responseText.split(",");
+			   var result = parts[1].split(":");
+			   var result1 = result[1].replace(/"/g, "");
+			   result2 = result1.replace('}', "");
+ 				//alert(result2);
+				//alert(result2);
+				// insertIntoResultTable06(JSON.parsec),"resultTable06");
+				}
+			}
+		};
+		//uri
+	  var res = encodeURI("/invoke/cb.sil.controlpage.pub:getFileStatus?&srcFilename=" + fileName + "&dummyTime="+new Date().getTime().toString());
+	 xhttp.open("get", res, false);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("Accept", "application/json");
+		xhttp.send();
+		result2 = "\"" +result2 + "\"";
+	  return result2;
+ }
+
+ 
+ 
+ function insertIntoResultTable14(json,resultTableEle) {
+		var el_down = document.getElementById("GFG_DOWN12"); 
+		if (json == '') {
+			el_down.innerHTML = '';
+			return;
+		}
+		
+	
+		var resultTable = document.getElementById(resultTableEle);
+		//delete old table if existent
+		while (resultTable.rows.length > 0) {
+			resultTable.deleteRow(0);
+		}
+		//stop if no result found
+		
+		//temp
+		var row = resultTable.insertRow(0);
+		var cell = row.insertCell(0);
+
+		row = resultTable.insertRow(1);
+		cell = row.insertCell(0);
+		var s1 = JSON.stringify(json,null,4);
+		el_down.innerHTML = moveFileDisplayblock+"File Re-Processing:" + "\n"+ s1;
+	}
+
+function cleanupString(fileName){
+ fileName=fileName.replace('[','');
+ fileName=fileName.replace(']','');
+ fileName=fileName.replace(/"/g, '');
+ return fileName;
+}
+
+
+function checkReProcessed(fileName){
+	fileName=fileName+' ';
+	var isRep = fileName.indexOf('REPROCESSED');
+
+	if(isRep != -1){
+	isReprocessed = 'Yes';
+	}else{
+	isReprocessed = 'No';
+	}
+	return isReprocessed;
+
+}
+
+function getSplitFileName(fileName){
+	fileName=cleanupString(fileName);
+	var isRep = fileName.indexOf('REPROCESSED');
+	if(isRep != -1){
+		var sSplitStr=fileName.split("REPROCESSED");
+		splitFileName=sSplitStr[0];
+		
+	}else{
+	splitFileName=fileName;
+	}
+	
+	return splitFileName;
+}
+
+
+function getCounter(fileName){
+	fileName=fileName+' ';
+	var isRep = fileName.indexOf('REPROCESSED');
+	if(isRep != -1){
+		var sSplitStr=fileName.split("REPROCESSED");
+		var fSplitStr=sSplitStr[1].split("_");
+		rCounter = fSplitStr[1];
+		rDate = fSplitStr[2];
+	}else{
+	rCounter= '0';
+	}
+	
+	return rCounter;
+}
+
+function getDate(fileName){
+	fileName=cleanupString(fileName);
+	var isRep = fileName.indexOf('REPROCESSED');
+	if(isRep != -1){
+		var sSplitStr=fileName.split("REPROCESSED");
+		var fSplitStr=sSplitStr[1].split("_");
+		rDate = fSplitStr[2];
+		
+	}else{
+	rDate= 'N/A';
+	}
+	
+	return rDate;
+}
+
+</script>
+%end%
+%ifvar value userACL equals('default')%
+<div class="main">
+<h2 style="color:red;text-align:center;">Access denied to this functionality<h2>
+</div>
+%end%
+%ifvar value userACL equals('none')%
+<div class="main">
+<h2 style="color:red;text-align:center;">Access denied<h2>
+</div>
+%end%
+</html>
