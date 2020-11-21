@@ -4,13 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './basket.css';
 
 
-const Basket = (props) => {
+const BasketBar = (props) => {
 
     let basketList = props.basket.map(basketItem => <p>{basketItem.name}, rozmiar: {basketItem.size} : cena: {basketItem.price}</p>);
 
     return (
-
-        <div className="basket" style={props.basketSum === 0 ? { display: "none" } : { color: "white" }}>
+        
+        <div className="basket-bar" style={props.basketSum === 0 ? { display: "none" } : { color: "white" }}>
             <div className="">
                 {basketList}
             </div>
@@ -21,4 +21,4 @@ const Basket = (props) => {
     );
 }
 
-export default Basket;
+export default BasketBar;
