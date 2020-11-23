@@ -6,7 +6,7 @@ import WelcomePage from './components/welcomePage/WelcomePage';
 import BasketBar from './components/basket/BasketBar';
 import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
-import { BrowserRouter, Route, Router } from 'react-router-dom';
+import { BrowserRouter, Route, NavLink} from 'react-router-dom';
 import Basket from './components/basket/Basket';
 
 
@@ -29,7 +29,9 @@ class App extends Component {
         price_m: 29.00,
         price_l: 34.00,
         choosenSize: 24,
-        description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte i bazylią"
+        description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte i bazylią",
+        image: "",
+        bar_image: ""
       },
       {
         id: 2,
@@ -38,7 +40,9 @@ class App extends Component {
         price_m: 37.00,
         price_l: 42.00,
         choosenSize: 24,
-        description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte, bazylią i pikantnym salami"
+        description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte, bazylią i pikantnym salami",
+        image: "",
+        bar_image: ""
       },
       {
         id: 3,
@@ -47,7 +51,9 @@ class App extends Component {
         price_m: 29.00,
         price_l: 34.00,
         choosenSize: 24,
-        description: "z wędzonym serem provola, pesto z bazylii, neapolitańskimi suszonymi pomidorami, oliwą extra virgin, serem grana padano d.o.p i bazylią"
+        description: "z wędzonym serem provola, pesto z bazylii, neapolitańskimi suszonymi pomidorami, oliwą extra virgin, serem grana padano d.o.p i bazylią",
+        image: "",
+        bar_image: ""
       },
       {
         id: 4,
@@ -56,7 +62,9 @@ class App extends Component {
         price_m: 38.00,
         price_l: 43.00,
         choosenSize: 24,
-        description: "z mozzarellą fior di latte, oliwą extra virgin, niebieskim serem gorgonzola d.o.p, serem pecorino romano, panna di burata, pieprzem i bazylią"
+        description: "z mozzarellą fior di latte, oliwą extra virgin, niebieskim serem gorgonzola d.o.p, serem pecorino romano, panna di burata, pieprzem i bazylią",
+        image: "",
+        bar_image: ""
       },
       {
         id: 5,
@@ -65,7 +73,9 @@ class App extends Component {
         price_m: 40.00,
         price_l: 46.00,
         choosenSize: 24,
-        description: "z wędzonym serem provola, cukinią, wieprzowym guancine, miętą, płatkami sera caciocavallo i oliwą extra virgine"
+        description: "z wędzonym serem provola, cukinią, wieprzowym guancine, miętą, płatkami sera caciocavallo i oliwą extra virgine",
+        image: "",
+        bar_image: ""
       },
       {
         id: 6,
@@ -74,7 +84,9 @@ class App extends Component {
         price_m: 47.00,
         price_l: 55.00,
         choosenSize: 24,
-        description: "focaccia z kawałkami burraty, pomidorami cherry, rukolą, oliwą extra virgine i prosciutto crudo di parma"
+        description: "focaccia z kawałkami burraty, pomidorami cherry, rukolą, oliwą extra virgine i prosciutto crudo di parma",
+        image: "",
+        bar_image: ""
       }
     ]
   }
@@ -101,7 +113,6 @@ class App extends Component {
     const menu = [...this.state.menu];
     const index = menu.findIndex(menuItem => menuItem.id === id);
     menu[index].choosenSize = size;
-    // console.log('addToBasket()');
     const basketItem = {
       id: menu[index].id,
       name: menu[index].name,
@@ -109,9 +120,7 @@ class App extends Component {
       description: menu[index].description,
       price: this.checkPrice(menu[index].choosenSize, index)
     }
-    // console.log(basketItem);
     let basket = [...this.state.basket];
-    // console.log(basket);
     basket.push(basketItem);
     let basketSum = this.updateBasketSum(basket);
     console.log("basketSum: " + basketSum);
@@ -173,7 +182,9 @@ class App extends Component {
             <div className="body-wraper">
               <Menu menuList={this.state.menu} changeSize={this.changeSize} addToBasket={this.addToBasket}></Menu>
             </div>
-            <BasketBar basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></BasketBar>
+            <NavLink className="navbar-item" activeClassName="is-active" exact to="/basket">
+              <BasketBar basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum}></BasketBar>
+            </NavLink>
           </Route>
           <Route exact path="/basket">
             <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum} deleteBasketItem={this.deleteBasketItem}></Basket>

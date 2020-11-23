@@ -1,5 +1,21 @@
+
+.basket-wrapper {
+    margin-top: 200px;
+}
+
+.basket-item {
+    border: grey solid 1px;
+    border-radius: 50px;
+    margin: 10px;
+}
+
+.basket-item:hover {
+    background-color: #FFD8B9;
+}
+
+/* BAR */
 .basket-bar {
-    height: 120px;
+    height: 80px;
     width: 100vw;
     color: whitesmoke;
     background-color: black;
@@ -8,20 +24,31 @@
     position: fixed;
     border-bottom: grey solid 1px;
     font-size: 20px;
+    padding: 10px;
     /* Set the navbar to fixed position */
     bottom: 0;
     /* Position the navbar at the top of the page */
 }
 
-.basket-wrapper{
-    margin-top: 200px;
-}
-
-.basket-item{
-    border: grey solid 1px;
-    border-radius: 50px;
+.basket-bar-item {
+    float: left;
     margin: 10px;
 }
-.basket-item:hover{
-  background-color: #FFD8B9;
+
+.basket-bar .pizza-img {
+    width: 50px;
+    height: 50px;
+}
+
+.basket-bar .bar-button{
+    /* position: absolute;
+    bottom: -5px;
+    right: 50px; */
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
