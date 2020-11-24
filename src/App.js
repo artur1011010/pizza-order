@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Controlls from './components/controlls/Controlls';
+
 import WelcomePage from './components/welcomePage/WelcomePage';
 import BasketBar from './components/basket/BasketBar';
 import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
-import { BrowserRouter, Route, NavLink} from 'react-router-dom';
 import Basket from './components/basket/Basket';
+import Payment from './components/payment/Payment';
+
+
 
 
 class App extends Component {
 
   state = {
     customer: {
-      email: "artur.artur@gmail.com",
-      name: "Artur Zac",
+      name: "",
+      email: "",
+      phone: "",
+      postal_code: "",
       address: "",
-      phone: ""
     },
     basket: [],
     basketSum: 0,
@@ -172,6 +176,21 @@ class App extends Component {
     basket.forEach(i => result += i.price);
     return result;
   }
+  getCustomerData = (customer) =>{
+    console.log("getCustomerData() in App.js");
+    // const { name, email, phone, postal_code, address } = customer;
+    console.log("name: " + customer.name);
+    console.log("email: " + customer.email);
+    console.log("phone: " + customer.phone);
+    console.log("postal_code: " + customer.postal_code);
+    console.log("address: " + customer.address);
+    
+    console.log("setState()");
+
+    this.setState({
+      customer
+    })
+  }
 
   render() {
     return (
@@ -190,7 +209,10 @@ class App extends Component {
             <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum} deleteBasketItem={this.deleteBasketItem}></Basket>
           </Route>
           <Route path="/welcome">
-            <WelcomePage></WelcomePage>
+            <WelcomePage getCustomerData={this.getCustomerData} customerData={this.state.customer}></WelcomePage>
+          </Route>
+          <Route exact path="/payment">
+            <Payment basket={this.state.basket} basketSum={this.state.basketSum}></Payment>
           </Route>
         </div>
       </BrowserRouter>

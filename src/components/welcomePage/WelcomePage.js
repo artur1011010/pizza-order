@@ -5,6 +5,17 @@ import './welcomePage.css';
 import { Link } from 'react-router-dom';
 
 
+    
+// function fetchDataFromApp() {
+//     const { name, email, phone, postal_code, address } = this.props.customerData;
+//     console.log("fetchDataFromApp()");
+//     console.log("name: " + name);
+//     console.log("email: " + email);
+//     console.log("phone: " + phone);
+//     console.log("postal_code: " + postal_code);
+//     console.log("address: " + address);
+// }
+
 class WelcomePage extends Component {
 
     state = {
@@ -50,6 +61,22 @@ class WelcomePage extends Component {
         })
     }
 
+    updateCustomer = () => {
+        const customer = this.state
+        console.log("updateCustomer() in welcomePage");
+        console.log("name: " + customer.name);
+        console.log("email: " + customer.email);
+        console.log("phone: " + customer.phone);
+        console.log("postal_code: " + customer.postal_code);
+        console.log("address: " + customer.address);
+        // const { name, phone, email, postal_code, address } = this.state;
+        // console.log("email: " + email);
+        // console.log("phone: " + phone);
+        // console.log("postal_code: " + postal_code);
+        // console.log("address: " + address);
+        this.props.getCustomerData(customer);
+    }
+
     getCity = (code) => {
         const _url = "http://kodpocztowy.intami.pl/api/";
         let get_url = _url + code;
@@ -60,17 +87,27 @@ class WelcomePage extends Component {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
-                'Accept' : 'application/json'
+                'Accept': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             }
         });
         console.log(response.data);
     }
 
+    fetchDataFromApp = () => {
+        const { name, email, phone, postal_code, address } = this.props.customerData;
+        console.log("fetchDataFromApp()");
+        console.log("name: " + name);
+        console.log("email: " + email);
+        console.log("phone: " + phone);
+        console.log("postal_code: " + postal_code);
+        console.log("address: " + address);
+    }
+
     render() {
         return (
             <div className="welcome-page row justify-content-center">
-                <div className="col-4">
+                <div className="col-xl-6 col-lg-8 col-10">
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Imię i nazwisko</Form.Label>
@@ -110,7 +147,9 @@ class WelcomePage extends Component {
                             <span>Przejdz do menu</span>
                         </Button>
                     </Link>
-                    <Button onClick={() => this.getCity("93-447")} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>get city test</div>
+                    <Button onClick={() => this.updateCustomer()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>update customer data</div>
+                    </Button>
+                    <Button onClick={() => this.fetchDataFromApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>fetch Data From App</div>
                     </Button>
                 </div>
             </div>
