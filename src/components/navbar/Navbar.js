@@ -13,7 +13,7 @@ const NavBar = (props) => {
                 <div className="left-nav"><img className="nav-avatar" src={avatar} alt="avatar"></img>{props.customer.name}</div>
             </NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" exact to="/basket">
-                <div className="right-nav">Suma: {props.basketSum === 0 ? "Twój koszyk jest jeszcze pusty" : props.basketSum + " zł"}</div>
+                <div className="right-nav">{props.basketSum === 0 ? "Twój koszyk jest jeszcze pusty" : "koszyk: "+  props.basketSum + " zł"}</div>
             </NavLink>
         </div>
     );

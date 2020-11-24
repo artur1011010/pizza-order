@@ -28,11 +28,11 @@ const menuItem = (props) => {
                 <div className="pizza-card col-xl-6 col-lg-8 col-10">
                     <h3>{props.name}</h3><h1> {price} zł</h1><h6>za rozmiar {props.choosenSize} cm</h6>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-5">
                             <img className="pizza-img" src={pizza} alt="pizza"></img>
                         </div>
                         {/* <div style={{display: "none"}}>{props.description} */}
-                        <div className="pizza-desc col-6">{props.description}
+                        <div className="pizza-desc col-5">{props.description}
                         </div>
                     </div>
                     <Controlls changeSize={props.changeSize} id={props.id} addToBasket={props.addToBasket} choosenSize={props.choosenSize}></Controlls>

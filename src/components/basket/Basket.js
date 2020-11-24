@@ -20,7 +20,7 @@ const Basket = (props) => {
                 <br></br>
                 <Link to="/">
                     <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                        <span>Przejdz do menu</span>
+                        <span>menu</span>
                     </Button>
                 </Link>
             </div>
