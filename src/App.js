@@ -9,6 +9,7 @@ import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
 import Basket from './components/basket/Basket';
 import Payment from './components/payment/Payment';
+import UserForm from './components/form/UserForm';
 
 
 
@@ -176,15 +177,15 @@ class App extends Component {
     basket.forEach(i => result += i.price);
     return result;
   }
-  getCustomerData = (customer) =>{
-    console.log("getCustomerData() in App.js");
-    // const { name, email, phone, postal_code, address } = customer;
-    console.log("name: " + customer.name);
-    console.log("email: " + customer.email);
-    console.log("phone: " + customer.phone);
-    console.log("postal_code: " + customer.postal_code);
-    console.log("address: " + customer.address);
-    
+  updateCustomerData = (customer) => {
+    console.log("updateCustomerData() in App.js");
+    const { name, email, phone, postal_code, address } = customer;
+    console.log("name: " + name);
+    console.log("email: " + email);
+    console.log("phone: " + phone);
+    console.log("postal_code: " + postal_code);
+    console.log("address: " + address);
+
     console.log("setState()");
 
     this.setState({
@@ -209,10 +210,13 @@ class App extends Component {
             <Basket basket={this.state.basket} clearBasket={this.clearBasket} basketSum={this.state.basketSum} deleteBasketItem={this.deleteBasketItem}></Basket>
           </Route>
           <Route path="/welcome">
-            <WelcomePage getCustomerData={this.getCustomerData} customerData={this.state.customer}></WelcomePage>
+            <WelcomePage updateCustomerData={this.updateCustomerData} customerData={this.state.customer}></WelcomePage>
           </Route>
           <Route exact path="/payment">
-            <Payment basket={this.state.basket} basketSum={this.state.basketSum}></Payment>
+            <Payment basket={this.state.basket} basketSum={this.state.basketSum} customerData={this.state.customer}></Payment>
+          </Route>
+          <Route exact path="/form">
+            <UserForm></UserForm>
           </Route>
         </div>
       </BrowserRouter>

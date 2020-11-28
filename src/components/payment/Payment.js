@@ -24,6 +24,8 @@ class Payment extends Component {
 
     render() {
         const basketList = this.props.basket.map(item => <div>id={item.id} name={item.name}  size={getSize(item.size)} price={item.price}</div>);
+        const { name, email, phone, postal_code, address } = this.props.customerData;
+        
         return (
             <>
                 <div className="payment-main">Podsumowanie zamowienia:</div>
@@ -33,6 +35,9 @@ class Payment extends Component {
                         <span>wróć do koszyka</span>
                     </Button>
                 </Link>
+                <div className="customer-data">
+                    {name} , email: {email} , phone: {phone}, postal_code: {postal_code}, address: {address}
+                </div>
                 <br></br>
                 <Link to="/">
                     <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">

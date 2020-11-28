@@ -5,7 +5,7 @@ import './welcomePage.css';
 import { Link } from 'react-router-dom';
 
 
-    
+
 // function fetchDataFromApp() {
 //     const { name, email, phone, postal_code, address } = this.props.customerData;
 //     console.log("fetchDataFromApp()");
@@ -19,11 +19,13 @@ import { Link } from 'react-router-dom';
 class WelcomePage extends Component {
 
     state = {
-        name: "",
-        email: "",
-        phone: "",
-        postal_code: "",
-        address: ""
+        customer: {
+            name: "",
+            email: "",
+            phone: "",
+            postal_code: "",
+            address: ""
+        }
     }
 
     handleName = (e) => {
@@ -61,22 +63,6 @@ class WelcomePage extends Component {
         })
     }
 
-    updateCustomer = () => {
-        const customer = this.state
-        console.log("updateCustomer() in welcomePage");
-        console.log("name: " + customer.name);
-        console.log("email: " + customer.email);
-        console.log("phone: " + customer.phone);
-        console.log("postal_code: " + customer.postal_code);
-        console.log("address: " + customer.address);
-        // const { name, phone, email, postal_code, address } = this.state;
-        // console.log("email: " + email);
-        // console.log("phone: " + phone);
-        // console.log("postal_code: " + postal_code);
-        // console.log("address: " + address);
-        this.props.getCustomerData(customer);
-    }
-
     getCity = (code) => {
         const _url = "http://kodpocztowy.intami.pl/api/";
         let get_url = _url + code;
@@ -94,14 +80,37 @@ class WelcomePage extends Component {
         console.log(response.data);
     }
 
-    fetchDataFromApp = () => {
+    getCustomerFromApp = () => {
         const { name, email, phone, postal_code, address } = this.props.customerData;
-        console.log("fetchDataFromApp()");
+        console.log("getCustomerFromApp() welcomePage.js");
         console.log("name: " + name);
         console.log("email: " + email);
         console.log("phone: " + phone);
         console.log("postal_code: " + postal_code);
         console.log("address: " + address);
+    }
+
+    updateCustomerDataInApp = () => {
+        // const { name, email, phone, postal_code, address } = this.state.customer;
+        const cust1 = {
+            name: this.state.name,
+            email: this.state.email,
+            phone: this.state.phone,
+            postal_code: this.state.postal_code,
+            address: this.state.address
+
+        };
+        // console.log("updateCustomerDataInApp() welcomePage.js");
+        // console.log("name: " + this.state.name);
+        // console.log("email: " + this.state.email);
+        // console.log("phone: " + this.state.phone);
+        // console.log("postal_code: " + this.state.postal_code);
+        // console.log("address: " + this.state.address);
+        this.props.updateCustomerData(cust1);
+    }
+
+    changeUrlTest = () => {
+        this.props.router.push('/basket');
     }
 
     render() {
@@ -138,18 +147,22 @@ class WelcomePage extends Component {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Akceptuje regulamin serwisu" controlId="user_conditions" />
                         </Form.Group>
-                        <Button className="custom-buttons rounded-pill add" variant="secondary" type="submit">
-                            Zapisz
-                    </Button>
+                        <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary" type="submit"><div>update Customer Data In App = send customer to App.js</div>
+                        </Button>
                     </Form>
                     <Link to="/">
                         <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
                             <span>Przejdz do menu</span>
                         </Button>
                     </Link>
-                    <Button onClick={() => this.updateCustomer()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>update customer data</div>
+                    <br></br>
+                    <Button onClick={() => this.getCustomerFromApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>get customer data from App</div>
                     </Button>
-                    <Button onClick={() => this.fetchDataFromApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>fetch Data From App</div>
+                    <br></br>
+                    <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary" type="submit"><div>update Customer Data In App = send customer to App.js</div>
+                    </Button>
+                    <br></br>
+                    <Button onClick={() => this.changeUrlTest()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>change url '/' </div>
                     </Button>
                 </div>
             </div>

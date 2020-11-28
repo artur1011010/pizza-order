@@ -21,8 +21,6 @@ const passSize = (size) => {
 
 const BasketBar = (props) => {
 
-
-
     let basketList = props.basket.map(basketItem => <div className="basket-bar-item">
         <img className="pizza-img" src={pizza} alt="pizza"></img>
         {basketItem.name},  {passSize(basketItem.size)}; {basketItem.price} zł
