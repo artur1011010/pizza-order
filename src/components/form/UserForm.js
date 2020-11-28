@@ -8,8 +8,7 @@ const UserForm = (props) => {
 
     return (
         <div className="form-wraper">
-            <div>
-                <h1>Sign Up</h1>
+            <div className="form__group field">
                 <Formik
                     initialValues={{
                         firstName: '',
@@ -22,20 +21,23 @@ const UserForm = (props) => {
                     }}
                 >
                     <Form>
-                        <label htmlFor="firstName">First Name</label>
+                        {/* <label htmlFor="firstName">First Name</label> */}
                         <Field
+                            className="form__field"
                             id="firstName"
                             name="firstName"
                             placeholder="Jane" />
 
-                        <label htmlFor="lastName">Last Name</label>
+                        {/* <label htmlFor="lastName">Last Name</label> */}
                         <Field
+                            className="form__field"
                             id="lastName"
                             name="lastName"
                             placeholder="Doe" />
 
-                        <label htmlFor="email">Email</label>
+                        {/* <label htmlFor="email">Email</label> */}
                         <Field
+                            className="form__field"
                             id="email"
                             name="email"
                             placeholder="jane@acme.com"

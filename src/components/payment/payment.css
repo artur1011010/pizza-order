@@ -1,4 +1,18 @@
 .payment-main{
-    margin-top: 150px;
-    color: red;
+    margin-top: 120px;
 }
+
+.order-list {
+    /* border: grey solid 1px;
+    border-radius: 50px; */
+    margin: 10px;
+}
+
+.order-list ul li{
+    list-style-type: none;
+    padding: 10px;
+}
+
+.payment-img{
+    width: 15vw;
+} 

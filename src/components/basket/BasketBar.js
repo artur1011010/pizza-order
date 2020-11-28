@@ -6,18 +6,17 @@ import './basket.css';
 import pizza from '../../images/pizza1-round.png';
 
 const passSize = (size) => {
-
-    let result = "mała";
-    if (size === 32) {
-        result = "średnia";
+    switch (size) {
+        case 24:
+            return "mała";
+        case 32:
+            return "średnia";
+        case 42:
+            return "duża";
+        default:
+            return "N/A";
     }
-    else if (size === 42) {
-        result = "duża";
-    }
-
-    return result;
 }
-
 
 const BasketBar = (props) => {
 

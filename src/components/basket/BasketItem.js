@@ -8,7 +8,7 @@ const BasketItem = (props) => {
     return (
         <>
             <div className="basket-item">
-                nr: {props.id}, {props.name}  {props.size} cena: {props.price} zł
+             {props.name} - {props.size}: {props.price} zł
             <Button onClick={() => props.deleteBasketItem(props.id)} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>usuń</div>
                 </Button>
             </div>

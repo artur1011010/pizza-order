@@ -12,8 +12,6 @@ import Payment from './components/payment/Payment';
 import UserForm from './components/form/UserForm';
 
 
-
-
 class App extends Component {
 
   state = {
@@ -224,6 +222,5 @@ class App extends Component {
   }
 
 }
-
 
 export default App;
