@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route} from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './payment.css';
 import './blik.scss';
 import blik from '../../images/blik.png';
 import card from '../../images/mc-visa.png';
+import WelcomePage from '../welcomePage/WelcomePage';
 
 const isNotEmpty = (string) => {
-    if (string === "" || typeof string !== 'undefined') {
+    if (string === "" || string == null) {
         return false;
     }
     return true;
@@ -32,7 +33,7 @@ const createOrderList = (order, basketSum) => {
         return (
             <>
                 <div className="row justify-content-center">
-                    <div className="col-xl-6 col-lg-8 col-10 basket-wrapper">
+                    <div className="col-xl-6 col-lg-8 col-10">
                         <div className="summary">
                             Do zapłaty: {basketSum + 6} zł z dowozem
                         </div>
@@ -57,7 +58,7 @@ class Payment extends Component {
     }
 
     getCustomerData(name, email, phone, postal_code, address) {
-        if (isNotEmpty(name) && isNotEmpty(phone) && isNotEmpty(address)) {
+        if (isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(address) && isNotEmpty(phone)) {
             return (
                 <>
                     <div className="row justify-content-center">
@@ -90,7 +91,7 @@ class Payment extends Component {
                                     <Form.Control value={address} className="rounded-pill" type="address" placeholder="Twój adres: miasto, ulica" controlId="address" readOnly />
                                 </Form.Group>
                             </Form >
-                            <Link to="/form">
+                            <Link to="/welcome">
                                 <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
                                     <div>Zmiana danych</div>
                                 </Button>
@@ -101,13 +102,12 @@ class Payment extends Component {
             )
         }
         else
+        // TODO fix routing
             return (
                 <>
-                    <Link to="/form">
-                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <div>Przejdz do formularza zmiany danych</div>
-                        </Button>
-                    </Link>
+                    <Route to="/welcome">
+                        <WelcomePage></WelcomePage>
+                    </Route>
 
                 </>
             )
@@ -120,7 +120,6 @@ class Payment extends Component {
                 <div className="payment-main">
                     {createOrderList(this.props.basket, this.props.basketSum)}
                     {this.getCustomerData(name, email, phone, postal_code, address)}
-                    <hr></hr>
                     <Link to="/basket">
                         <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
                             <span>wróc do koszyka</span>
