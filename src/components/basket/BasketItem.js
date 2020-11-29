@@ -15,7 +15,7 @@ const BasketItem = (props) => {
                     <div className="pizza-size">{props.size}</div>
                 </div>
                 <div className="right">
-                    <div className="delete-button" onClick={() => props.deleteBasketItem(props.id)}>X</div>
+                    <div className="delete-button" onClick={() => props.deleteBasketItem(props.id)}>x</div>
                     <div className="pizza-price">{props.price} zł</div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import './payment.css';
 import '../../../node_modules/react-credit-cards/lib/styles.scss';
 
 
-class CardPaymentForm extends Component {
+class CardPayment extends Component {
 
     state = {
         cvc: '',
@@ -28,7 +28,7 @@ class CardPaymentForm extends Component {
 
     render() {
         return (
-            <div id="paymentForm-wrapper">
+            <div className="paymentForm-wrapper">
                 <Cards
                     cvc={this.state.cvc}
                     expiry={this.state.expiry}
@@ -69,7 +69,7 @@ class CardPaymentForm extends Component {
                         />
                         <Link to="/basket">
                             <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                                <span>zapłać</span>
+                                <span>Potwierdz i zapłać</span>
                             </Button>
                         </Link>
                     </form>
@@ -79,4 +79,4 @@ class CardPaymentForm extends Component {
     }
 }
 
-export default CardPaymentForm;
+export default CardPayment;

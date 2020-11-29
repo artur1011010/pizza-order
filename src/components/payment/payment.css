@@ -1,23 +1,16 @@
 .payment-main {
-    margin-top: 120px;
-}
-
-.order-list {
-    /* border: grey solid 1px;
-    border-radius: 50px; */
-    margin: 10px;
-}
-
-.order-list ul li {
-    list-style-type: none;
-    padding: 10px;
+    margin-top: 100px;
 }
 
 .payment-img {
     width: 15vw;
 }
 
-#paymentForm-wrapper input {
+.paymentForm-wrapper{
+    margin-top: 100px;
+}
+
+.paymentForm-wrapper .paymentForm input{
     width: 30vw;
     padding: 10px;
     border: grey 1px solid;
@@ -34,9 +27,9 @@
 .card-wrapper {
     margin: 0 auto;
     width: 50%;
-    /* border: violet 2px dotted; */
 }
 
 .blik-wrapper{
     color: black;
 }
+

@@ -4,9 +4,7 @@ import './navbar.css'
 import avatar from '../../images/account_avat.png';
 
 const NavBar = (props) => {
-
     // let basketList = props.basket.map(basketItem => <p>{basketItem.name}, rozmiar: {basketItem.size} : cena: {basketItem.price}</p>);
-
     return (
         <div className="nav-bar">
             <NavLink className="navbar-item" activeClassName="is-active" exact to="/welcome">

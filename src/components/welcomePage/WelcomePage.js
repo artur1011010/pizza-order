@@ -2,19 +2,7 @@ import { Button, Form } from 'react-bootstrap';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './welcomePage.css';
-import { Link } from 'react-router-dom';
-
-
-
-// function fetchDataFromApp() {
-//     const { name, email, phone, postal_code, address } = this.props.customerData;
-//     console.log("fetchDataFromApp()");
-//     console.log("name: " + name);
-//     console.log("email: " + email);
-//     console.log("phone: " + phone);
-//     console.log("postal_code: " + postal_code);
-//     console.log("address: " + address);
-// }
+import { NavLink } from 'react-router-dom';
 
 class WelcomePage extends Component {
 
@@ -147,23 +135,12 @@ class WelcomePage extends Component {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Akceptuje regulamin serwisu" controlId="user_conditions" />
                         </Form.Group>
-                        <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary" type="submit"><div>update Customer Data In App = send customer to App.js</div>
-                        </Button>
                     </Form>
-                    <Link to="/">
-                        <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <span>Przejdz do menu</span>
+                    <br></br>
+                    <NavLink exact to="/">
+                        <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>przesylanie danych i przejscie do menu </div>
                         </Button>
-                    </Link>
-                    <br></br>
-                    <Button onClick={() => this.getCustomerFromApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>get customer data from App</div>
-                    </Button>
-                    <br></br>
-                    <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary" type="submit"><div>update Customer Data In App = send customer to App.js</div>
-                    </Button>
-                    <br></br>
-                    <Button onClick={() => this.changeUrlTest()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>change url '/' </div>
-                    </Button>
+                    </NavLink>
                 </div>
             </div>
         );

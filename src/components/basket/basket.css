@@ -37,8 +37,8 @@
 }
 
 .basket-item .right .delete-button{
-    margin-top: 20px;
-    font-size: 30px;
+    margin-top: 25px;
+    font-size: 25px;
     float: right;
     min-width: 50px;
     width: 8vw;
@@ -46,7 +46,7 @@
     /* border: black dotted 5px; */
 }
 .basket-item .delete-button:hover{
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .basket-item:hover {
@@ -56,8 +56,10 @@
 /* BAKET SUMMARY */
 .basket-wrapper .summary{
     /* width: 100px; */
-    margin: 40px;
+    margin: 40px 10px;
     text-align: right;
+    border-bottom: solid black 1px;
+    border-bottom-width: thin;
 }
 
 /* BAR */
@@ -88,10 +90,6 @@
 }
 
 .basket-bar .bar-button{
-    /* position: absolute;
-    bottom: -5px;
-    right: 50px; */
-
     margin: 0;
     position: absolute;
     top: 50%;

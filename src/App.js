@@ -10,7 +10,8 @@ import NavBar from './components/navbar/Navbar';
 import Basket from './components/basket/Basket';
 import Payment from './components/payment/Payment';
 import UserForm from './components/form/UserForm';
-
+import BlikPayment from './components/payment/BlikPayment';
+import CardPayment from './components/payment/CardPayment';
 
 class App extends Component {
 
@@ -97,15 +98,12 @@ class App extends Component {
     console.log("changeSize()");
     console.log("id : " + id);
     console.log("size:  " + size);
-
     //TODO - POMYSLEC JAK ZROBIC MENU STATYCZNE, ZEBY UNIEMOZLIWIC ZMIANE POL
     let menu = [...this.state.menu];
     const index = menu.findIndex(menuItem => menuItem.id === id);
-    //TODO zmienic na switch-case
     console.log("menu index: " + index);
     menu[index].choosenSize = size;
     console.log("menu[index].choosenSize: " + menu[index].choosenSize);
-
 
     this.setState({
       menu: menu
@@ -133,7 +131,7 @@ class App extends Component {
     })
   }
 
-// TODO - analyze and fix
+  // TODO - analyze and fix
   deleteBasketItem = (id) => {
     console.log("deleteBasketItem()");
     console.log("id: " + id)
@@ -217,6 +215,13 @@ class App extends Component {
           <Route exact path="/form">
             <UserForm></UserForm>
           </Route>
+          <Route exact path="/payment/blik">
+            <BlikPayment></BlikPayment>
+          </Route>
+          <Route exact path="/payment/card">
+            <CardPayment></CardPayment>
+          </Route>
+
         </div>
       </BrowserRouter>
     );

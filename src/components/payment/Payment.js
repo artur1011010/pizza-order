@@ -1,76 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './payment.css';
 import './blik.scss';
 import blik from '../../images/blik.png';
 import card from '../../images/mc-visa.png';
-import CardPaymentForm from './CardPaymentForm';
-
-
-const getSize = (size) => {
-    switch (size) {
-        case 24:
-            return "mała";
-        case 32:
-            return "średnia";
-        case 42:
-            return "duża";
-        default:
-            return "N/A";
-    }
-}
 
 const isNotEmpty = (string) => {
-    if (string.trim() === "" || string.trim().length === 0) {
+    if (string === "" || typeof string !== 'undefined') {
         return false;
     }
     return true;
 }
 
-const getCustomerModule = (name, email, phone, postal_code, address) => {
-    if (isNotEmpty(name) && isNotEmpty(phone) && isNotEmpty(address)) {
-        return (
-            <>
-                <div className="order-list">
-                    Twoje dane:
-                    <ul>
-                        <li>{name}</li>
-                        <li>email {email}</li>
-                        <li>telefon: {phone}</li>
-                        <li>adres: {address} {postal_code}</li>
-                        <li></li>
-                    </ul>
-                    <Link to="/form">
-                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <div>Przejdz do formularza zmiany danych</div>
-                        </Button>
-                    </Link>
-                    <br></br>
-                </div>
-            </>
-        )
-    } else
-        return (
-            <>
-                Uzupełnij dane:
-                <br></br>
-                <Link to="/form">
-                    <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                        <div>Przejdz do formularza zmiany danych</div>
-                    </Button>
-                </Link>
-            </>
-        )
-}
-
-
 const createOrderList = (order, basketSum) => {
     if (order.length === 0) {
         return (
             <div>
-                Twój koszyk jest podsty, przejdz do menu...
+                Twój koszyk jest pusty, przejdz do menu...
                 <br></br>
                 <Link to="/">
                     <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
@@ -81,21 +29,13 @@ const createOrderList = (order, basketSum) => {
         )
     }
     else {
-        const basketList = order.map(item => <li>{getSize(item.size)} {item.name} {item.price} zł</li>);
         return (
             <>
                 <div className="row justify-content-center">
-                    <div className="col-xl-6 col-lg-8 col-10 order-list">
-                        <ul>
-                            {basketList}
-                        </ul>
-                        Łączna kwota do zapłaty: {basketSum + 6} zł (doliczylismy 6 zł opłaty za dowóz)
-                        <br></br>
-                        <Link to="/basket">
-                            <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                                <span>edytuj koszyk</span>
-                            </Button>
-                        </Link>
+                    <div className="col-xl-6 col-lg-8 col-10 basket-wrapper">
+                        <div className="summary">
+                            Do zapłaty: {basketSum + 6} zł z dowozem
+                        </div>
                     </div>
                 </div>
             </>
@@ -109,8 +49,6 @@ class Payment extends Component {
         paymetMethod: ""
     }
 
-
-
     handlePaymentMethod(method) {
         console.log(method);
         this.setState({
@@ -118,37 +56,62 @@ class Payment extends Component {
         })
     }
 
-    cardPayment() {
-        return (
-            <>
-                <div>
-                    <CardPaymentForm></CardPaymentForm>
-                </div>
-            </>
-        )
-    }
-    //nie dziala ograniczenie ilosci znaków
-    blikPayment() {
-        return (
-            <>
-                <div className="blik-wrapper">
-                    <label htmlFor="blik-code">Wprowadz kod blik:</label>
-                    <input
-                        id="blik"
-                        name="blik-code"
-                        min="000000"
-                        max="999999">
-                    </input>
-                    <Link to="/basket">
-                        <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <span>zapłać</span>
+    getCustomerData(name, email, phone, postal_code, address) {
+        if (isNotEmpty(name) && isNotEmpty(phone) && isNotEmpty(address)) {
+            return (
+                <>
+                    <div className="row justify-content-center">
+                        <div className="col-xl-6 col-lg-8 col-10">
+                            <Form>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Imię i nazwisko</Form.Label>
+                                    <Form.Control value={name} className="rounded-pill" type="text" placeholder="" controlId="name" readOnly />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>email</Form.Label>
+                                    <Form.Control value={email} className="rounded-pill" type="email" placeholder={email} controlId="emil" readOnly />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>telefon</Form.Label>
+                                    <Form.Control value={phone} type="tel" name="phone" className="rounded-pill" placeholder="Twój telefon   np: 123-456-789" controlId="phone" readOnly />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>kod pocztowy</Form.Label>
+                                    <Form.Control value={postal_code} className="rounded-pill" type="text" placeholder="XX-XXX" controlId="postal-code" readOnly />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Adres</Form.Label>
+                                    <Form.Control value={address} className="rounded-pill" type="address" placeholder="Twój adres: miasto, ulica" controlId="address" readOnly />
+                                </Form.Group>
+                            </Form >
+                            <Link to="/form">
+                                <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                                    <div>Zmiana danych</div>
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                </>
+            )
+        }
+        else
+            return (
+                <>
+                    <Link to="/form">
+                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                            <div>Przejdz do formularza zmiany danych</div>
                         </Button>
                     </Link>
-                </div>
-            </>
-        )
-    }
 
+                </>
+            )
+    }
 
     render() {
         const { name, email, phone, postal_code, address } = this.props.customerData;
@@ -156,12 +119,20 @@ class Payment extends Component {
             <>
                 <div className="payment-main">
                     {createOrderList(this.props.basket, this.props.basketSum)}
-                    {getCustomerModule(name, email, phone, postal_code, address)}
+                    {this.getCustomerData(name, email, phone, postal_code, address)}
+                    <hr></hr>
+                    <Link to="/basket">
+                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                            <span>wróc do koszyka</span>
+                        </Button>
+                    </Link>
                     <br></br>
-                    <span className="col-6"><img onClick={() => this.handlePaymentMethod('blik')} className="payment-img" src={blik} alt="blik"></img></span>
-                    <span className="col-6"><img onClick={() => this.handlePaymentMethod('card')} className="payment-img" src={card} alt="mastercard visa payment"></img></span>
-                    {(this.state.paymetMethod === "blik") ? this.blikPayment() : null}
-                    {(this.state.paymetMethod === "card") ? this.cardPayment() : null}
+                    <Link to="/payment/blik">
+                        <img className="payment-img" src={blik} alt="blik"></img>
+                    </Link>
+                    <Link to="/payment/card">
+                        <img className="payment-img" src={card} alt="mastercard visa payment"></img>
+                    </Link>
                 </div>
             </>
         )
