@@ -133,6 +133,7 @@ class App extends Component {
     })
   }
 
+// TODO - analyze and fix
   deleteBasketItem = (id) => {
     console.log("deleteBasketItem()");
     console.log("id: " + id)

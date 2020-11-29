@@ -22,7 +22,7 @@ const getSize = (size) => {
 
 const Basket = (props) => {
 
-    const basketList = props.basket.map(item => <BasketItem name={item.name} size={getSize(item.size)} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
+    const basketList = props.basket.map(item => <BasketItem name={item.name} key={item.id} id={item.id} size={getSize(item.size)} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
 
     return (
         <Route exact path="/basket">

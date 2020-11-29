@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './payment.css';
-import './payment.scss';
+import './blik.scss';
 import blik from '../../images/blik.png';
 import card from '../../images/mc-visa.png';
 import CardPaymentForm from './CardPaymentForm';
@@ -47,6 +47,7 @@ const getCustomerModule = (name, email, phone, postal_code, address) => {
                             <div>Przejdz do formularza zmiany danych</div>
                         </Button>
                     </Link>
+                    <br></br>
                 </div>
             </>
         )
@@ -70,6 +71,7 @@ const createOrderList = (order, basketSum) => {
         return (
             <div>
                 Twój koszyk jest podsty, przejdz do menu...
+                <br></br>
                 <Link to="/">
                     <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
                         <span>menu</span>
@@ -107,6 +109,8 @@ class Payment extends Component {
         paymetMethod: ""
     }
 
+
+
     handlePaymentMethod(method) {
         console.log(method);
         this.setState({
@@ -117,7 +121,9 @@ class Payment extends Component {
     cardPayment() {
         return (
             <>
-               <CardPaymentForm></CardPaymentForm>
+                <div>
+                    <CardPaymentForm></CardPaymentForm>
+                </div>
             </>
         )
     }
@@ -125,18 +131,24 @@ class Payment extends Component {
     blikPayment() {
         return (
             <>
-                <div>
-                    <label labelFor="blik-code">Wprowadz kod blik:</label>
+                <div className="blik-wrapper">
+                    <label htmlFor="blik-code">Wprowadz kod blik:</label>
                     <input
                         id="blik"
                         name="blik-code"
                         min="000000"
                         max="999999">
                     </input>
+                    <Link to="/basket">
+                        <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                            <span>zapłać</span>
+                        </Button>
+                    </Link>
                 </div>
             </>
         )
     }
+
 
     render() {
         const { name, email, phone, postal_code, address } = this.props.customerData;
@@ -145,6 +157,7 @@ class Payment extends Component {
                 <div className="payment-main">
                     {createOrderList(this.props.basket, this.props.basketSum)}
                     {getCustomerModule(name, email, phone, postal_code, address)}
+                    <br></br>
                     <span className="col-6"><img onClick={() => this.handlePaymentMethod('blik')} className="payment-img" src={blik} alt="blik"></img></span>
                     <span className="col-6"><img onClick={() => this.handlePaymentMethod('card')} className="payment-img" src={card} alt="mastercard visa payment"></img></span>
                     {(this.state.paymetMethod === "blik") ? this.blikPayment() : null}

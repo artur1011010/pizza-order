@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Cards from 'react-credit-cards';
+import './payment.css';
 import '../../../node_modules/react-credit-cards/lib/styles.scss';
 
 
@@ -25,7 +28,7 @@ class CardPaymentForm extends Component {
 
     render() {
         return (
-            <div id="PaymentForm">
+            <div id="paymentForm-wrapper">
                 <Cards
                     cvc={this.state.cvc}
                     expiry={this.state.expiry}
@@ -33,39 +36,47 @@ class CardPaymentForm extends Component {
                     name={this.state.name}
                     number={this.state.number}
                 />
-                <form>
-                    <input
-                        type="tel"
-                        name="number"
-                        placeholder="Card Number"
-                        onChange={this.handleInputChange}
-                        onFocus={this.handleInputFocus}
-                    />
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        onChange={this.handleInputChange}
-                        onFocus={this.handleInputFocus}
-                    />
-                    <input
-                        type="text"
-                        name="expiry"
-                        placeholder="XX/XXXX"
-                        onChange={this.handleInputChange}
-                        onFocus={this.handleInputFocus}
-                    />
-                    <input
-                        type="text"
-                        maxLength="3"
-                        name="cvc"
-                        placeholder="???"
-                        onChange={this.handleInputChange}
-                        onFocus={this.handleInputFocus}
-                    />
-                </form>
+                <div className="card-wrapper">
+                    <form className="paymentForm">
+                        <input
+                            type="tel"
+                            name="number"
+                            placeholder="Card Number"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                        />
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                        />
+                        <input
+                            type="text"
+                            name="expiry"
+                            placeholder="XX/XXXX"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                        />
+                        <input
+                            type="text"
+                            maxLength="3"
+                            name="cvc"
+                            placeholder="CVV"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                        />
+                        <Link to="/basket">
+                            <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                                <span>zapłać</span>
+                            </Button>
+                        </Link>
+                    </form>
+                </div>
             </div>
         );
     }
 }
+
 export default CardPaymentForm;
