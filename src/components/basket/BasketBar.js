@@ -2,7 +2,6 @@ import { Button } from 'react-bootstrap';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './basket.css';
-
 import pizza from '../../images/pizza1-round.png';
 
 const passSize = (size) => {

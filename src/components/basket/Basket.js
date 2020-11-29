@@ -20,32 +20,48 @@ const getSize = (size) => {
     }
 }
 
+const getSummary = (basketSum, clearBasket) => {
+    if (basketSum !== 0) {
+        return (<>
+            <Link to="/">
+                <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                    <span>wróc do menu</span>
+                </Button>
+            </Link>
+            <Button onClick={() => clearBasket()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>wyczyść koszyk</div>
+            </Button>
+            <Link to="/payment">
+                <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                    <span>Przejdz do płatności</span>
+                </Button>
+            </Link>
+
+            <div className="summary">SUMA: {basketSum} zł</div>
+        </>
+        )
+    } else
+        return (
+            <>
+                <Link to="/">
+                    <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                        <span>wróc do menu</span>
+                    </Button>
+                </Link>
+                <div className="summary">Twoj koszyk jest pusty</div>
+            </>
+        )
+}
+
 const Basket = (props) => {
 
-    const basketList = props.basket.map(item => <BasketItem name={item.name} key={item.id} id={item.id} size={getSize(item.size)} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
+    const basketList = props.basket.map(item => <BasketItem name={item.name} keyy={item.id} id={item.id} size={getSize(item.size)} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
 
     return (
         <Route exact path="/basket">
             <div className="row justify-content-center">
                 <div className="basket-wrapper col-xl-6 col-lg-8 col-10">
                     {basketList}
-                    {(props.basketSum !== 0) ? "suma " + props.basketSum + " zł" : "Twoj koszyk jest pusty"}
-                    <br></br>
-                    {(props.basketSum !== 0) ? <Link to="/payment">
-                        <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <span>Przejdz do płatności</span>
-                        </Button>
-                    </Link>
-                        : null}
-                    <br></br>
-                    {(props.basketSum !== 0) ? <Button onClick={() => props.clearBasket()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>wyczyść koszyk</div>
-                    </Button> : null}
-                    <br></br>
-                    <Link to="/">
-                        <Button renderas="button" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <span>menu</span>
-                        </Button>
-                    </Link>
+                    {getSummary(props.basketSum, props.clearBasket)}
                 </div>
             </div>
         </Route >
