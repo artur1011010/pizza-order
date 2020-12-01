@@ -35,7 +35,7 @@ const createOrderList = (order, basketSum) => {
                 <div className="row justify-content-center">
                     <div className="col-xl-6 col-lg-8 col-10">
                         <div className="summary">
-                            Do zapłaty: {basketSum + 6} zł z dowozem
+                            Do zapłaty: {basketSum} zł
                         </div>
                     </div>
                 </div>

@@ -54,7 +54,14 @@ const getSummary = (basketSum, clearBasket) => {
 
 const Basket = (props) => {
 
-    const basketList = props.basket.map(item => <BasketItem name={item.name} keyy={item.id} id={item.id} size={getSize(item.size)} price={item.price} deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
+    const basketList = props.basket.map(basketItem => <BasketItem 
+        name={basketItem.name} 
+        image={basketItem.image} 
+        key={basketItem.id} 
+        id={basketItem.id} 
+        size={getSize(basketItem.size)} 
+        price={basketItem.price} 
+    deleteBasketItem={props.deleteBasketItem}> </BasketItem>);
 
     return (
         <Route exact path="/basket">

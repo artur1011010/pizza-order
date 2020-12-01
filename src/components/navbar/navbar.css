@@ -18,6 +18,7 @@
     display: inline-block;
     float: left;
     position: relative;
+    color: black;
 }
 
 .nav-bar .left-nav .nav-avatar{
@@ -33,5 +34,6 @@
     display: inline-block;
     float: right;
     position: relative;
+    color: black;
 }
 

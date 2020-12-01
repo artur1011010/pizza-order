@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import NewForm from './components/form//NewForm';
 import WelcomePage from './components/welcomePage/WelcomePage';
 import BasketBar from './components/basket/BasketBar';
 import Menu from './components/menu/Menu';
 import NavBar from './components/navbar/Navbar';
 import Basket from './components/basket/Basket';
 import Payment from './components/payment/Payment';
-import UserForm from './components/form/UserForm';
 import BlikPayment from './components/payment/BlikPayment';
 import CardPayment from './components/payment/CardPayment';
+import Success from './components/payment/Success';
+
 
 class App extends Component {
 
@@ -23,6 +24,7 @@ class App extends Component {
       postal_code: "",
       address: "",
     },
+    basketCounter: 0,
     basket: [],
     basketSum: 0,
     menu: [
@@ -34,7 +36,7 @@ class App extends Component {
         price_l: 34.00,
         choosenSize: 24,
         description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte i bazylią",
-        image: "",
+        image: 1,
         bar_image: ""
       },
       {
@@ -45,7 +47,7 @@ class App extends Component {
         price_l: 42.00,
         choosenSize: 24,
         description: "z sosem pomidorowym, oliwą extra virgin, serem grana padano d.o.p, mozzarellą fior di latte, bazylią i pikantnym salami",
-        image: "",
+        image: 2,
         bar_image: ""
       },
       {
@@ -56,7 +58,7 @@ class App extends Component {
         price_l: 34.00,
         choosenSize: 24,
         description: "z wędzonym serem provola, pesto z bazylii, neapolitańskimi suszonymi pomidorami, oliwą extra virgin, serem grana padano d.o.p i bazylią",
-        image: "",
+        image: 3,
         bar_image: ""
       },
       {
@@ -67,7 +69,7 @@ class App extends Component {
         price_l: 43.00,
         choosenSize: 24,
         description: "z mozzarellą fior di latte, oliwą extra virgin, niebieskim serem gorgonzola d.o.p, serem pecorino romano, panna di burata, pieprzem i bazylią",
-        image: "",
+        image: 4,
         bar_image: ""
       },
       {
@@ -78,7 +80,7 @@ class App extends Component {
         price_l: 46.00,
         choosenSize: 24,
         description: "z wędzonym serem provola, cukinią, wieprzowym guancine, miętą, płatkami sera caciocavallo i oliwą extra virgine",
-        image: "",
+        image: 5,
         bar_image: ""
       },
       {
@@ -89,7 +91,7 @@ class App extends Component {
         price_l: 55.00,
         choosenSize: 24,
         description: "focaccia z kawałkami burraty, pomidorami cherry, rukolą, oliwą extra virgine i prosciutto crudo di parma",
-        image: "",
+        image: 6,
         bar_image: ""
       }
     ]
@@ -111,21 +113,27 @@ class App extends Component {
   }
 
   addToBasket = (id, size) => {
+
+    let basketCounter = this.state.basketCounter;
+    // add ID referencing to exact object - new id
     const menu = [...this.state.menu];
     const index = menu.findIndex(menuItem => menuItem.id === id);
     menu[index].choosenSize = size;
     const basketItem = {
-      id: menu[index].id,
+      id: basketCounter,
       name: menu[index].name,
       size: menu[index].choosenSize,
       description: menu[index].description,
-      price: this.checkPrice(menu[index].choosenSize, index)
+      price: this.checkPrice(menu[index].choosenSize, index),
+      image: menu[index].image
     }
+    basketCounter = basketCounter + 1;
     let basket = [...this.state.basket];
     basket.push(basketItem);
     let basketSum = this.updateBasketSum(basket);
     console.log("basketSum: " + basketSum);
     this.setState({
+      basketCounter,
       basket,
       basketSum
     })
@@ -213,7 +221,7 @@ class App extends Component {
             <Payment basket={this.state.basket} basketSum={this.state.basketSum} customerData={this.state.customer}></Payment>
           </Route>
           <Route exact path="/form">
-            <UserForm></UserForm>
+            <NewForm></NewForm>
           </Route>
           <Route exact path="/payment/blik">
             <BlikPayment></BlikPayment>
@@ -221,7 +229,9 @@ class App extends Component {
           <Route exact path="/payment/card">
             <CardPayment></CardPayment>
           </Route>
-
+          <Route exact path="/success">
+            <Success></Success>
+          </Route>
         </div>
       </BrowserRouter>
     );

@@ -67,7 +67,7 @@ class CardPayment extends Component {
                             onChange={this.handleInputChange}
                             onFocus={this.handleInputFocus}
                         />
-                        <Link to="/basket">
+                        <Link to="/success">
                             <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
                                 <span>Potwierdz i zapłać</span>
                             </Button>

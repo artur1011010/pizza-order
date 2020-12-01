@@ -88,17 +88,16 @@ class WelcomePage extends Component {
             address: this.state.address
 
         };
-        // console.log("updateCustomerDataInApp() welcomePage.js");
-        // console.log("name: " + this.state.name);
-        // console.log("email: " + this.state.email);
-        // console.log("phone: " + this.state.phone);
-        // console.log("postal_code: " + this.state.postal_code);
-        // console.log("address: " + this.state.address);
         this.props.updateCustomerData(cust1);
     }
 
     changeUrlTest = () => {
         this.props.router.push('/basket');
+    }
+
+    handleSubmit(event) {
+        console.log("########### SUBMIT ##################");
+        event.preventDefault();
     }
 
     render() {
@@ -120,7 +119,8 @@ class WelcomePage extends Component {
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>telefon</Form.Label>
-                            <Form.Control value={this.state.phone} onChange={this.handlePhone} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}|[0-9]{9}|\+48[0-9]{9}$" className="rounded-pill" placeholder="Twój telefon   np: 123-456-789" controlId="phone" />
+                            <Form.Control value={this.state.phone} onChange={this.handlePhone} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}|[0-9]{9}|\+48[0-9]{9}$" 
+                            className="rounded-pill" placeholder="Twój telefon   np: 123-456-789" controlId="phone" />
                             <Form.Text className="text-muted">
                             </Form.Text>
                         </Form.Group>
@@ -135,12 +135,13 @@ class WelcomePage extends Component {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Akceptuje regulamin serwisu" controlId="user_conditions" />
                         </Form.Group>
+                        <NavLink exact to="/">
+                            <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>przesylanie danych i przejscie do menu </div>
+                            </Button>
+                        </NavLink>
                     </Form>
+
                     <br></br>
-                    <NavLink exact to="/">
-                        <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>przesylanie danych i przejscie do menu </div>
-                        </Button>
-                    </NavLink>
                 </div>
             </div>
         );
