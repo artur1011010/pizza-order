@@ -39,6 +39,20 @@
     /* border: red dotted 5px; */
 }
 
+@media screen and (max-width: 600px) {
+    .basket-item .pizza-desc{
+        font-size: 14px;
+
+    }
+    .basket-item .pizza-desc .pizza-size{
+        font-size: 10px;
+    }
+    .basket-item .pizza-price{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+  }
+
 .basket-item .right .delete-button {
     margin-top: 25px;
     font-size: 25px;

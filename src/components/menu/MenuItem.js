@@ -35,9 +35,7 @@ const getImage = (image) => {
 
 
 const menuItem = (props) => {
-    console.log("props:  image: " + props.image)
     let price;
-
     if (props.choosenSize === 24) {
         // console.log(" size = s");
         price = props.price_s;
@@ -50,8 +48,6 @@ const menuItem = (props) => {
         // console.log(" size = l");
         price = props.price_l;
     }
-
-
 
     return (
         <>

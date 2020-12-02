@@ -26,7 +26,6 @@ const getSize = (size) => {
 
 
 const getImage = (image) => {
-    console.log("image: " + image)
     switch (image) {
         case 1:
             return pizza;

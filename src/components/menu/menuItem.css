@@ -52,3 +52,10 @@
         font-size: 1.4vw;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    .pizza-card .pizza-desc{
+        margin-top: -10px;
+
+    }
+  }

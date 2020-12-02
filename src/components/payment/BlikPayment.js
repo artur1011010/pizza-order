@@ -9,22 +9,22 @@ class BlikPayment extends Component {
 
     render() {
         return (
-                <div>
-                    <div className="paymentForm-wrapper">
-                        <label htmlFor="blik-code">Wprowadz kod blik:</label>
-                        <input
-                            id="blik"
-                            name="blik-code"
-                            min="000000"
-                            max="999999">
-                        </input>
-                    </div>
-                    <Link to="/success">
-                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
-                            <span>Potwierdz i zapłać</span>
-                        </Button>
-                    </Link>
+            <div>
+                <div className="paymentForm-wrapper">
+                    <label htmlFor="blik-code">Wprowadz kod blik:</label>
+                    <input
+                        id="blik"
+                        type="text"
+                        maxLength="6"
+                        name="blik-code">
+                    </input>
                 </div>
+                <Link to="/success">
+                    <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                        <span>Potwierdz i zapłać</span>
+                    </Button>
+                </Link>
+            </div>
         );
     }
 }

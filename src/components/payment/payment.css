@@ -5,6 +5,11 @@
 .payment-img {
     width: 15vw;
 }
+@media screen and (max-width: 600px) {
+    .payment-main .payment-img{
+        width: 150px;
+    }
+  }
 
 .paymentForm-wrapper{
     margin-top: 100px;
@@ -57,3 +62,4 @@
     margin-top: 60px;
     font-size: 22px;
 }
+
