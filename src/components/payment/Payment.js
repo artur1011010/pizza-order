@@ -106,7 +106,7 @@ class Payment extends Component {
             return (
                 <>
                     <Route to="/welcome">
-                        <WelcomePage></WelcomePage>
+                        <WelcomePage updateCustomerData={this.props.updateCustomerData}></WelcomePage>
                     </Route>
 
                 </>

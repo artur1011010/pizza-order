@@ -218,7 +218,7 @@ class App extends Component {
             <WelcomePage updateCustomerData={this.updateCustomerData} customerData={this.state.customer}></WelcomePage>
           </Route>
           <Route exact path="/payment">
-            <Payment basket={this.state.basket} basketSum={this.state.basketSum} customerData={this.state.customer}></Payment>
+            <Payment updateCustomerData={this.updateCustomerData} basket={this.state.basket} basketSum={this.state.basketSum} customerData={this.state.customer}></Payment>
           </Route>
           <Route exact path="/form">
             <NewForm></NewForm>

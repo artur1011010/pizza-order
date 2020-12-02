@@ -95,11 +95,6 @@ class WelcomePage extends Component {
         this.props.router.push('/basket');
     }
 
-    handleSubmit(event) {
-        console.log("########### SUBMIT ##################");
-        event.preventDefault();
-    }
-
     render() {
         return (
             <div className="welcome-page row justify-content-center">

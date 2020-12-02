@@ -36,8 +36,8 @@ class CardPayment extends Component {
                     name={this.state.name}
                     number={this.state.number}
                 />
-                <div className="card-wrapper">
-                    <form className="paymentForm">
+                <div className="card-wrapper row justify-content-center">
+                    <form className="paymentForm col-xl-4 col-lg-6 col-8 sm-12">
                         <input
                             type="tel"
                             name="number"
