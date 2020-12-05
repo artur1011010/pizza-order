@@ -131,7 +131,7 @@ class WelcomePage extends Component {
                             <Form.Check type="checkbox" label="Akceptuje regulamin serwisu" controlId="user_conditions" />
                         </Form.Group>
                         <NavLink exact to="/">
-                            <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>przesylanie danych i przejscie do menu </div>
+                            <Button onClick={() => this.updateCustomerDataInApp()} className="custom-buttons rounded-pill basket-button" variant="secondary"><div>przesylanie danych i powrót do menu</div>
                             </Button>
                         </NavLink>
                     </Form>

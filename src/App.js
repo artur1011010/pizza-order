@@ -224,10 +224,10 @@ class App extends Component {
             <NewForm></NewForm>
           </Route>
           <Route exact path="/payment/blik">
-            <BlikPayment></BlikPayment>
+            <BlikPayment clearBasket={this.clearBasket}></BlikPayment>
           </Route>
           <Route exact path="/payment/card">
-            <CardPayment></CardPayment>
+            <CardPayment clearBasket={this.clearBasket}></CardPayment>
           </Route>
           <Route exact path="/success">
             <Success></Success>

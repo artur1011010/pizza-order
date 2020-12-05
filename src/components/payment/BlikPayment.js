@@ -7,6 +7,10 @@ import '../../../node_modules/react-credit-cards/lib/styles.scss';
 
 class BlikPayment extends Component {
 
+    clearBasket = () => {
+        this.props.clearBasket();
+    }
+
     render() {
         return (
             <div>
@@ -20,7 +24,7 @@ class BlikPayment extends Component {
                     </input>
                 </div>
                 <Link to="/success">
-                    <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                    <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button"  onClick={this.clearBasket}  variant="secondary">
                         <span>Potwierdz i zapłać</span>
                     </Button>
                 </Link>

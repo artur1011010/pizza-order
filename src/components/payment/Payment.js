@@ -125,7 +125,13 @@ class Payment extends Component {
                             <span>wróc do koszyka</span>
                         </Button>
                     </Link>
+                    <Link to="/">
+                        <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                            <span>wróc do menu</span>
+                        </Button>
+                    </Link>
                     <br></br>
+                    <h3 className="mt-4">lub wybierz metode płatności i przejdz dalej</h3>
                     <Link to="/payment/blik">
                         <img className="payment-img" src={blik} alt="blik"></img>
                     </Link>

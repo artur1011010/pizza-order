@@ -25,6 +25,9 @@ class CardPayment extends Component {
 
         this.setState({ [name]: value });
     }
+    clearBasket = () => {
+        this.props.clearBasket();
+    }
 
     render() {
         return (
@@ -68,7 +71,7 @@ class CardPayment extends Component {
                             onFocus={this.handleInputFocus}
                         />
                         <Link to="/success">
-                            <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" variant="secondary">
+                            <Button renderas="button mt-3" className="custom-buttons rounded-pill basket-button" onClick={this.clearBasket} variant="secondary">
                                 <span>Potwierdz i zapłać</span>
                             </Button>
                         </Link>
